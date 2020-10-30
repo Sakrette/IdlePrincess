@@ -64,7 +64,7 @@ function setup(){
             valid_hour.innerText  = ("0"+VALID.hour ).slice(-2);
 
             web_update_time.innerText = INFO.updatetime;
-            if (jdata.web_update_datetime != INFO.updatetime) web_update_time.innerText += " (最新版本為" + jdata.web_update_datetime + ")"
+            if (jdata.git_update_datetime != INFO.updatetime) git_update_time.innerText += " (最新版本為" + jdata.git_update_datetime + ")"
             data_update_time.innerText = "資料更新時間：" + jdata.update_datetime;
         });
 }
