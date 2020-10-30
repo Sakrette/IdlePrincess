@@ -1,8 +1,5 @@
-let _info = document.body.getElementsByTagName("info")[0].attributes;
+let _info = {};
 let INFO = {};
-new Array(_info.length).fill(0).forEach((i, idx) => {
-    INFO[_info[idx].name] = _info[idx].value;
-})
 let RANKS = {};
 let FAIRIES = {};
 let FAIRIES_UNORDERED = {};
@@ -31,11 +28,18 @@ let DATETIME = {
 };
 
 window.onload = () => {
+    globalSetup();
     setup();   
 }
 
 
 
+function globalSetup(){
+    _info = document.body.getElementsByTagName("info")[0].attributes;
+    new Array(_info.length).fill(0).forEach((i, idx) => {
+        INFO[_info[idx].name] = _info[idx].value;
+    });
+}
 
 function setup(){
     NOW = setup_datetime(datetime_year, datetime_month, datetime_date, datetime_hour);
