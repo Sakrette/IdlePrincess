@@ -69,6 +69,20 @@ function setup(){
         });
 }
 
+function settime_now(y, m, d, h) {
+    let now = NOW;
+    // year
+    y.value = now.year;
+    // month
+    m.value = now.month;
+    // date
+    d.value = now.date;
+    // hours
+    h.value = now.hour;
+
+    return now;
+}
+
 function setup_datetime(y, m, d, h, datetime) {
     datetime = datetime || new Date();
     datetime.setHours(datetime.getHours() + datetime.getTimezoneOffset()/60 + 8); // TW is UTC+8
@@ -198,8 +212,16 @@ function search() {
     //msg.innerText = fairyImg.src;
 
     result.innerText = "限時：";
-    for (var count=1; count<=display_count.value; count++, datetime.setHours(datetime.getHours() + fairycount)){
-        if (!ignoreValid.checked && datetime>validtime) break; // 超過維修時間，會不準
+    for (let count=1, flag=false; count<=display_count.value; count++, datetime.setHours(datetime.getHours() + fairycount)){
+        if (datetime>validtime) { // 超過維修時間，會不準
+            if (!ignoreValid.checked) {
+                break;
+            } else if (!flag) {
+                result.innerText += "\n" + "========== 超過維修時間部分可能不準 ==========";
+                flag = true;
+            }
+        }
+
 
         let datetimeData = {
             year: datetime.getFullYear(),
@@ -228,8 +250,16 @@ function search() {
     datetime_full.setDate(datetime_full.getDate() + Math.ceil(DATETIME.getDelta(datetime_full, fromtime_full, DATETIME.DAY) / fairylen_full) * fairylen_full);
 
     result.innerText += "\n\n 全日：";
-    for (var count=1; count<=display_count.value; count++, datetime_full.setDate(datetime_full.getDate() + fairylen_full)){
-        if (!ignoreValid.checked && datetime_full>validtime_full) break; // 超過維修時間，會不準
+    for (let count=1, flag=false; count<=display_count.value; count++, datetime_full.setDate(datetime_full.getDate() + fairylen_full)){
+        if (datetime_full>validtime_full) { // 超過維修時間，會不準
+            if (!ignoreValid.checked) {
+                break;
+            } else if (!flag) {
+                result.innerText += "\n" + "========== 超過維修時間部分可能不準 ==========";
+                flag = true;
+            }
+        }
+
 
         let datetimeData = {
             year: datetime_full.getFullYear(),
@@ -268,8 +298,17 @@ function searchRank(rank) {
 
     result_title.innerText = "[" + rank + "]";
     result.innerText = "限時：";
-    for (var fid=0, count=0; count<display_count.value;){
-        if (!ignoreValid.checked && datetime>validtime) break; // 超過維修時間，會不準
+    for (var fid=0, count=0, flag=false; count<display_count.value;){
+        if (datetime>validtime) { // 超過維修時間，會不準
+            if (!ignoreValid.checked) {
+                break;
+            } else if (!flag) {
+                result.innerText += "\n" + "========== 超過維修時間部分可能不準 ==========";
+                flag = true;
+            }
+        }
+
+
         if (datetime >= fromtime) {
             count++;
             let fairy = fairies[fid];
@@ -317,8 +356,15 @@ function searchRank(rank) {
 
     result.innerText += "\n\n 全日：";
 
-    for (var count=1; count<=display_count.value; count++, datetime_full.setDate(datetime_full.getDate() + 1)){
-        if (!ignoreValid.checked && datetime_full>validtime_full) break; // 超過維修時間，會不準
+    for (var count=1, flag=false; count<=display_count.value; count++, datetime_full.setDate(datetime_full.getDate() + 1)){
+        if (datetime_full>validtime_full) { // 超過維修時間，會不準
+            if (!ignoreValid.checked) {
+                break;
+            } else if (!flag) {
+                result.innerText += "\n" + "========== 超過維修時間部分可能不準 ==========";
+                flag = true;
+            }
+        }
 
         let datetimeData = {
             year: datetime_full.getFullYear(),
