@@ -110,6 +110,12 @@ function setup_datetime(y, m, d, h, datetime) {
         addOption(h, hr);
     h.value = now.hour;
 
+
+    let validtime = new Date(VALID.year, VALID.month-1, VALID.date, VALID.hour);
+    if (DATETIME.getDelta(datetime, validtime, DATETIME.HOUR) < 0) {
+        ignoreValid.checked = true; // 初始設定時間(now)的時候如果超過維修時間就預設成checked
+    }
+
     return now;
 }
 
